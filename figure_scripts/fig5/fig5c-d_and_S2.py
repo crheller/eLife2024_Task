@@ -68,9 +68,9 @@ for j, (col, area) in enumerate(zip(["grey", "k"], ["A1", "PEG"])):
     for i, fa in enumerate(factor_models):
         # get mean tar vs. catch delta dprime for each site
         mask = (df.area==area) & (df.FA==fa)
-        tc_mean_dprime = df[mask & (df["class"]=="tar_cat")].groupby(by="site").mean()["delta"]
+        tc_mean_dprime = df[mask & (df["class"]=="tar_cat")].drop(columns=["class", "e1", "e2", "area", "FA"]).groupby(by="site").mean()["delta"]
         # get mean tar vs. tar delta dprime for each site
-        tt_mean_dprime = df[mask & (df["class"]=="tar_tar")].groupby(by="site").mean()["delta"]
+        tt_mean_dprime = df[mask & (df["class"]=="tar_tar")].drop(columns=["class", "e1", "e2", "area", "FA"]).groupby(by="site").mean()["delta"]
         # uall.append(tc_mean_dprime.values)
         uall.append(np.concatenate((tt_mean_dprime.values, tc_mean_dprime.values)))
         u.append(uall[i].mean())
@@ -130,9 +130,9 @@ for col, area in zip(["grey", "k"], ["A1", "PEG"]):
     for i, fa in enumerate(factor_models):
         # get mean tar vs. catch delta dprime for each site
         mask = (df.area==area) & (df.FA==fa)
-        tc_mean_dprime = df[mask & (df["class"]=="tar_cat")].groupby(by="site").mean()["delta"]
+        tc_mean_dprime = df[mask & (df["class"]=="tar_cat")].drop(columns=["class", "e1", "e2", "area", "FA"]).groupby(by="site").mean()["delta"]
         # get mean tar vs. tar delta dprime for each site
-        tt_mean_dprime = df[mask & (df["class"]=="tar_tar")].groupby(by="site").mean()["delta"]
+        tt_mean_dprime = df[mask & (df["class"]=="tar_tar")].drop(columns=["class", "e1", "e2", "area", "FA"]).groupby(by="site").mean()["delta"]
         uall.append((tc_mean_dprime - tt_mean_dprime).values)
         u.append((tc_mean_dprime - tt_mean_dprime).mean())
         se.append((tc_mean_dprime - tt_mean_dprime).std() / np.sqrt(tc_mean_dprime.shape[0]))

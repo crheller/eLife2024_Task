@@ -11,7 +11,7 @@ sys.path.append(rdir)
 from settings import RESULTS_DIR
 import pandas as pd
 import helpers.tin_helpers as thelp
-import scipy.ndimage.filters as sf
+import scipy.ndimage as sf
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -22,7 +22,7 @@ mpl.rcParams['font.size'] = 8
 mpl.rcParams['xtick.labelsize'] = 8 
 mpl.rcParams['ytick.labelsize'] = 8 
 
-from nems0 import recording
+from nems.tools import recording
 
 # site = "CRD018d" -- A1 example site 
 # site = "CRD010b" -- PEG example site

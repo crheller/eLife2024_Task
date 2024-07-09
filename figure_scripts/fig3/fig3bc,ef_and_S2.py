@@ -56,6 +56,7 @@ df_drop = df[["dp_x", "dp_y", "e1", "e2", "site"]].drop_duplicates()
 df = df.loc[df_drop.index]
 df["delta"] = (df["dp_y"] - df["dp_x"]) / (df["dp_y"] + df["dp_x"])
 df["delta_raw"] = df["dp_y"] - df["dp_x"]
+df = df.loc[:, ["class", "area", "site", "dp_x", "dp_y", "delta", "delta_raw"]] # keep only needed, numeric types
 
 
 ## Scatter plot, group by site
@@ -66,8 +67,8 @@ f, ax = plt.subplots(1, 2, figsize=(4, 2))
 
 for cat, c in zip(categories, colors):
     ax[0].scatter(
-        df[(df["class"]==cat) & (df.area=="A1")].groupby(by=["site", "area"]).mean()["dp_x"],
-        df[(df["class"]==cat) & (df.area=="A1")].groupby(by=["site", "area"]).mean()["dp_y"],
+        df[(df["class"]==cat) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()["dp_x"],
+        df[(df["class"]==cat) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()["dp_y"],
         facecolor=c, edgecolor="none", s=s
     )
 mm = 10 #np.min(ax[0].get_xlim() + ax[0].get_ylim())
@@ -79,8 +80,8 @@ ax[0].set_ylim((m, mm))
 
 for cat, c in zip(categories, colors):
     ax[1].scatter(
-        df[(df["class"]==cat) & (df.area=="PEG")].groupby(by=["site", "area"]).mean()["dp_x"],
-        df[(df["class"]==cat) & (df.area=="PEG")].groupby(by=["site", "area"]).mean()["dp_y"],
+        df[(df["class"]==cat) & (df.area=="PEG")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()["dp_x"],
+        df[(df["class"]==cat) & (df.area=="PEG")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()["dp_y"],
         facecolor=c, edgecolor="none", s=s
     )
 mm = 8 #np.min(ax[1].get_xlim() + ax[1].get_ylim())
@@ -108,11 +109,11 @@ for i, (cat, c) in enumerate(zip(categories, colors)):
     try:
         ax[0].scatter(
             xx,
-            df[(df["class"]==cat) & (df.area=="A1")].groupby(by=["site", "area"]).mean()[delta_metric],
+            df[(df["class"]==cat) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric],
             s=s, c=c, edgecolor="none"
         )
-        u = df[(df["class"]==cat) & (df.area=="A1")].groupby(by=["site", "area"]).mean()[delta_metric].mean()
-        yerr = df[(df["class"]==cat) & (df.area=="A1")].groupby(by=["site", "area"]).mean()[delta_metric].std() / np.sqrt(len(xx))
+        u = df[(df["class"]==cat) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric].mean()
+        yerr = df[(df["class"]==cat) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric].std() / np.sqrt(len(xx))
         ax[0].errorbar(i, u, yerr=yerr, marker="o", 
                     capsize=2, lw=1, markerfacecolor=c, markeredgecolor="k", color="k")     
         xx += 1
@@ -134,11 +135,11 @@ for i, (cat, c) in enumerate(zip(categories, colors)):
     try:
         ax[1].scatter(
             xx,
-            df[(df["class"]==cat) & (df.area=="PEG")].groupby(by=["site", "area"]).mean()[delta_metric],
+            df[(df["class"]==cat) & (df.area=="PEG")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric],
             s=s, c=c, edgecolor="none"
         )
-        u = df[(df["class"]==cat) & (df.area=="PEG")].groupby(by=["site", "area"]).mean()[delta_metric].mean()
-        yerr = df[(df["class"]==cat) & (df.area=="PEG")].groupby(by=["site", "area"]).mean()[delta_metric].std() / np.sqrt(len(xx))
+        u = df[(df["class"]==cat) & (df.area=="PEG")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric].mean()
+        yerr = df[(df["class"]==cat) & (df.area=="PEG")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric].std() / np.sqrt(len(xx))
         ax[1].errorbar(i, u, yerr=yerr, marker="o", 
                     capsize=2, lw=1, markerfacecolor=c, markeredgecolor="k", color="k")     
         xx += 1
@@ -165,13 +166,13 @@ f.tight_layout()
 # Do pairwise stats
 for cc in list(combinations(categories, 2)):
     pval = ss.wilcoxon(
-        df[(df["class"]==cc[0]) & (df.area=="PEG")].groupby(by=["site", "area"]).mean()[delta_metric],
-        df[(df["class"]==cc[1]) & (df.area=="PEG")].groupby(by=["site", "area"]).mean()[delta_metric]
+        df[(df["class"]==cc[0]) & (df.area=="PEG")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric],
+        df[(df["class"]==cc[1]) & (df.area=="PEG")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric]
     ).pvalue
     print(f"{cc}, PEG, pval: {pval}")
 
     pval = ss.wilcoxon(
-        df[(df["class"]==cc[0]) & (df.area=="A1")].groupby(by=["site", "area"]).mean()[delta_metric],
-        df[(df["class"]==cc[1]) & (df.area=="A1")].groupby(by=["site", "area"]).mean()[delta_metric]
+        df[(df["class"]==cc[0]) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric],
+        df[(df["class"]==cc[1]) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric]
     ).pvalue
     print(f"{cc}, A1, pval: {pval}")

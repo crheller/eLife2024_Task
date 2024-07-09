@@ -1,9 +1,9 @@
 import os
-
-RESULTS_DIR = "/auto/users/hellerc/results/TBP_dryad"
+rr = os.path.dirname(__file__)
+RESULTS_DIR = os.path.join(rr, "eLife2024_data")
 
 if os.path.isdir(RESULTS_DIR)==False:
-    os.mkdir(RESULTS_DIR)
+    os.system(f"mkdir {RESULTS_DIR}")
 
 BAD_SITES = [
     "CRD013b", # not enough trials

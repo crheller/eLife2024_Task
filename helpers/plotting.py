@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from math import cos, sin, radians
 import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker

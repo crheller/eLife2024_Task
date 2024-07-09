@@ -9,7 +9,7 @@ rdir = os.path.dirname(os.path.dirname(__file__))
 import sys
 sys.path.append(rdir)
 
-from nems0 import recording
+from nems.tools import recording
 
 import helpers.tin_helpers as thelp
 from settings import RESULTS_DIR

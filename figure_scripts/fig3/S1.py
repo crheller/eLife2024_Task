@@ -14,7 +14,7 @@ rdir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 import sys
 sys.path.append(rdir)
 
-from nems0 import recording
+from nems.tools import recording
 
 from settings import RESULTS_DIR
 from itertools import combinations

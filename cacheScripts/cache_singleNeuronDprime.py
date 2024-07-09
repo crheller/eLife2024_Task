@@ -7,7 +7,7 @@ rdir = os.path.dirname(os.path.dirname(__file__))
 import sys
 sys.path.append(rdir)
 
-from nems0 import recording
+from nems.tools import recording
 
 from itertools import combinations
 from dDR.utils.decoding import compute_dprime

@@ -48,16 +48,17 @@ passive = pd.concat(passive)
 df = passive.merge(active, on=["site", "class", "e1", "e2", "area"])
 df["delta"] = (df["dp_y"] - df["dp_x"]) / (df["dp_y"] + df["dp_x"])
 df["delta_raw"] = df["dp_y"] - df["dp_x"]
+df = df.loc[:, ["class", "area", "site", "dp_x", "dp_y", "delta", "delta_raw", "e1", "e2"]] # keep only needed, numeric types
 
 # load behavioral dprimes
 beh_df = pd.read_pickle(os.path.join(RESULTS_DIR, "behavior_recording", "all_trials.pickle"))
 
 # Plot relationship between behavior and neural dprime
-bg = beh_df.groupby(by=["site", "e1"]).mean()
-ng_peg = df[(df["class"]=="tar_cat") & (df.area=="PEG")].groupby(by=["site", "e2"]).mean()
+bg = beh_df.drop(columns=["e2"]).groupby(by=["site", "e1"]).mean()
+ng_peg = df[(df["class"]=="tar_cat") & (df.area=="PEG")].drop(columns=["class", "area", "e1"]).groupby(by=["site", "e2"]).mean()
 ng_peg.index.set_names("e1", level=1, inplace=True)
 ng_peg.index = ng_peg.index.set_levels(ng_peg.index.levels[1].str.strip("TAR_"), level=1)
-ng_a1 = df[(df["class"]=="tar_cat") & (df.area=="A1")].groupby(by=["site", "e2"]).mean()
+ng_a1 = df[(df["class"]=="tar_cat") & (df.area=="A1")].drop(columns=["class", "area", "e1"]).groupby(by=["site", "e2"]).mean()
 ng_a1.index.set_names("e1", level=1, inplace=True)
 ng_a1.index = ng_a1.index.set_levels(ng_a1.index.levels[1].str.strip("TAR_"), level=1)
 
@@ -84,7 +85,7 @@ for i, (df, c) in enumerate(zip([a1_merge, peg_merge], colors)):
     # ax[i].set_title(f"{leg}")
 
     # get line of best fit
-    z = np.polyfit(x, df[delta_metric], 1)
+    z = np.polyfit(x.values.astype(np.float32), df[delta_metric].values, 1)
     # plot line of best fit
     p_y = z[1] + z[0] * xp
     ax[i].plot(xp, p_y, lw=2, color=c)
@@ -93,7 +94,7 @@ for i, (df, c) in enumerate(zip([a1_merge, peg_merge], colors)):
     boot_preds = []
     for bb in range(nboots):
         ii = np.random.choice(np.arange(0, len(x)), len(x), replace=True)
-        zb = np.polyfit(x[ii], df[delta_metric][ii], 1)
+        zb = np.polyfit(x.iloc[ii].values.astype(np.float32), df[delta_metric].iloc[ii], 1)
         p_yb = zb[1] + zb[0] * xp
         boot_preds.append(p_yb)
     bse = np.stack(boot_preds).std(axis=0)
@@ -112,12 +113,12 @@ x = a1_merge["dprime"]
 rb_a1 = []
 for bb in range(nboots):
     ii = np.random.choice(np.arange(0, len(x)), len(x), replace=True)
-    rb_a1.append(np.corrcoef(x[ii], a1_merge[delta_metric][ii])[0, 1])
+    rb_a1.append(np.corrcoef(x.iloc[ii].values.astype(np.float32), a1_merge[delta_metric].iloc[ii])[0, 1])
 x = peg_merge["dprime"]
 rb_peg = []
 for bb in range(nboots):
     ii = np.random.choice(np.arange(0, len(x)), len(x), replace=True)
-    rb_peg.append(np.corrcoef(x[ii], peg_merge[delta_metric][ii])[0, 1])
+    rb_peg.append(np.corrcoef(x.iloc[ii].values.astype(np.float32), peg_merge[delta_metric].iloc[ii])[0, 1])
 
 # compute bootstrapped p-values
 np.random.seed(123)
@@ -127,15 +128,15 @@ rb_a1_null = []
 for bb in range(nboots):
     ii = np.random.choice(np.arange(0, len(x)), len(x), replace=True)
     jj = np.random.choice(np.arange(0, len(x)), len(x), replace=True)
-    rb_a1_null.append(np.corrcoef(x[ii], a1_merge[delta_metric][jj])[0, 1])
+    rb_a1_null.append(np.corrcoef(x.iloc[ii].values.astype(np.float32), a1_merge[delta_metric].iloc[jj])[0, 1])
 x = peg_merge["dprime"]
 rb_peg_null = []
 for bb in range(nboots):
     ii = np.random.choice(np.arange(0, len(x)), len(x), replace=True)
     jj = np.random.choice(np.arange(0, len(x)), len(x), replace=True)
-    rb_peg_null.append(np.corrcoef(x[ii], peg_merge[delta_metric][jj])[0, 1])
-a1_pval = np.mean(np.array(rb_a1_null) > np.corrcoef(a1_merge["dprime"], a1_merge[delta_metric])[0, 1])
-peg_pval = np.mean(np.array(rb_peg_null) > np.corrcoef(peg_merge["dprime"], peg_merge[delta_metric])[0, 1])
+    rb_peg_null.append(np.corrcoef(x.iloc[ii].values.astype(np.float32), peg_merge[delta_metric].iloc[jj])[0, 1])
+a1_pval = np.mean(np.array(rb_a1_null) > np.corrcoef(a1_merge["dprime"].values.astype(np.float32), a1_merge[delta_metric].values.astype(np.float32))[0, 1])
+peg_pval = np.mean(np.array(rb_peg_null) > np.corrcoef(peg_merge["dprime"].values.astype(np.float32), peg_merge[delta_metric].values.astype(np.float32))[0, 1])
 print(f"A1 pval: {a1_pval}")
 print(f"PEG pval: {peg_pval}")
 

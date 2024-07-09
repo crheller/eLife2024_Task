@@ -22,7 +22,7 @@ mpl.rcParams['font.size'] = 8
 mpl.rcParams['xtick.labelsize'] = 8 
 mpl.rcParams['ytick.labelsize'] = 8 
 
-df_resp = pd.read_csv(os.path.join(RESULTS_DIR, "tar_vs_cat.csv"), index_col=0)
+df_resp = pd.read_csv(os.path.join(RESULTS_DIR, "tar_vs_cat.csv"), index_col=0).drop(columns=["site", "epoch"])
 df_dprime = pd.read_csv(os.path.join(RESULTS_DIR, "singleNeuronDprime.csv"), index_col=0)
 gg_resp = df_resp.groupby(by=["snr", "cellid", "area"]).mean()
 s = 3
