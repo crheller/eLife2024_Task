@@ -1,5 +1,5 @@
 """
-Summary of active vs. passive delte dprime for each target pair
+Summary of active vs. passive delta dprime for each target pair
 category
 """
 import os
@@ -16,10 +16,6 @@ from itertools import combinations
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
 
 sqrt = True
 db = pd.read_csv(os.path.join(RESULTS_DIR, "db.csv"), index_col=0)
@@ -176,3 +172,6 @@ for cc in list(combinations(categories, 2)):
         df[(df["class"]==cc[1]) & (df.area=="A1")].drop(columns=["class"]).groupby(by=["site", "area"]).mean()[delta_metric]
     ).pvalue
     print(f"{cc}, A1, pval: {pval}")
+
+
+plt.show() # show plots for interactive Qt backend

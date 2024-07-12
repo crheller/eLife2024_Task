@@ -14,13 +14,6 @@ from settings import RESULTS_DIR
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import matplotlib as mpl
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
-mpl.rcParams['xtick.labelsize'] = 8 
-mpl.rcParams['ytick.labelsize'] = 8 
 
 df_resp = pd.read_csv(os.path.join(RESULTS_DIR, "tar_vs_cat.csv"), index_col=0).drop(columns=["site", "epoch"])
 df_dprime = pd.read_csv(os.path.join(RESULTS_DIR, "singleNeuronDprime.csv"), index_col=0)
@@ -199,3 +192,5 @@ ax.hist(
     histtype="stepfilled"
 )
 print(f"{sum(sig_bool)}/{len(sig_bool)} significant change in d-prime A1 \n")
+
+plt.show() # show plots for interactive Qt backend

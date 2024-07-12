@@ -14,13 +14,6 @@ import helpers.tin_helpers as thelp
 import scipy.ndimage as sf
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
-mpl.rcParams['xtick.labelsize'] = 8 
-mpl.rcParams['ytick.labelsize'] = 8 
 
 from nems.tools import recording
 
@@ -118,3 +111,5 @@ for site in db.site:
 
         except:
                 print(f"failed for {site}. Means that behavior probably was not great for this dataset and didn't have enough trials of a certain stimulus")
+
+plt.show() # show plots for interactive Qt backend

@@ -17,12 +17,6 @@ import helpers.tin_helpers as thelp
 from helpers.plotting import plot_RT_histogram
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
-mpl.rcParams['xtick.labelsize'] = 8 
-mpl.rcParams['ytick.labelsize'] = 8 
 
 results_path = os.path.join(RESULTS_DIR, "behavior_training")
 
@@ -102,3 +96,5 @@ ax.set_ylabel(r"Performance ($d'$)")
 # ax.legend(frameon=False, bbox_to_anchor=(0, 1), loc="upper left")
 
 f.tight_layout()
+
+plt.show() # show plots for interactive Qt backend

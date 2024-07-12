@@ -10,10 +10,6 @@ import scipy.stats as ss
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
 
 nboots = 1000 # for sig testing
 
@@ -172,3 +168,5 @@ for col, area in zip(["grey", "k"], ["A1", "PEG"]):
 ax2.set_ylim((None, 1))
 for a in [ax, ax2]:
     a.axhline(0, linestyle="--", color="k")
+
+plt.show() # show plots for interactive Qt backend

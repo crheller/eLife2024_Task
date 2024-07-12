@@ -1,4 +1,4 @@
-name: elife2024_scratch 
+name: elife2024
 channels:
   - defaults
   - conda-forge
@@ -7,6 +7,8 @@ dependencies:
   - pandas
   - seaborn
   - scikit-learn
+  - ipykernel
+  - pyqt
   - pip
   - pip:
       - pickle4

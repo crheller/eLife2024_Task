@@ -12,10 +12,6 @@ import scipy.stats as ss
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 10
 
 sqrt = True
 db = pd.read_csv(os.path.join(RESULTS_DIR, "db.csv"), index_col=0)
@@ -156,3 +152,5 @@ ax.axhline(0, linestyle="--", color="grey")
 
 ax.set_xlim((-0.1, 1.1))
 ax.set_xticks([])
+
+plt.show() # show plots for interactive Qt backend

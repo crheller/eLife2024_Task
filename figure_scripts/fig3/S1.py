@@ -22,12 +22,6 @@ import pandas as pd
 import scipy.stats as ss
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
-mpl.rcParams['xtick.labelsize'] = 8 
-mpl.rcParams['ytick.labelsize'] = 8
 
 db = pd.read_csv(os.path.join(RESULTS_DIR, "db.csv"), index_col=0)
 sites = db.site
@@ -222,3 +216,6 @@ for (kk, mm) in zip(key_combos, d_combos):
     yy1 = np.nanmax(yy1, axis=1)
     pval, stat = ss.wilcoxon(yy0, yy1)
     print(f"delta {kk[0]} vs. {kk[1]}, pval: {pval}, stat: {stat}\n")
+
+
+plt.show() # show plots for interactive Qt backend

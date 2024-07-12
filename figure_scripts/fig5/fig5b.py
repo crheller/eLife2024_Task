@@ -14,12 +14,6 @@ import scipy.stats as ss
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
-mpl.rcParams['xtick.labelsize'] = 8
-mpl.rcParams['ytick.labelsize'] = 8 
 
 figpath = "/auto/users/hellerc/code/projects/TBP-ms/figure_files/fig5/"
 
@@ -77,15 +71,14 @@ for i, a in enumerate(["A1", "PEG"]):
     y = df[df.area==a]["acos_sim"]
     ax[i].errorbar(1, y.mean(), yerr=y.std()/np.sqrt(len(y)), marker="o",
             capsize=2, markeredgecolor="k", label="active") 
-    # ax[i].set_title(a)
     ax[i].set_xticks([])
     ax[i].set_xlim((-0.25, 1.25))
-# ax[0].set_ylabel("Cos. similarity (dU vs. FA1)")
-# ax[0].legend(frameon=False)
 f.tight_layout()
 
 # pvalues
-a1pval = ss.wilcoxon(df[df.area=="A1"]["acos_sim"], df[df.area=="A1"]["pcos_sim"])
-pegpval = ss.wilcoxon(df[df.area=="PEG"]["acos_sim"], df[df.area=="PEG"]["pcos_sim"])
+a1pval = ss.wilcoxon(df[df.area=="A1"]["acos_sim"].values.astype(np.float32), df[df.area=="A1"]["pcos_sim"].values.astype(np.float32))
+pegpval = ss.wilcoxon(df[df.area=="PEG"]["acos_sim"].values.astype(np.float32), df[df.area=="PEG"]["pcos_sim"].values.astype(np.float32))
 print(f"a1 alignement pval: {a1pval.pvalue}")
 print(f"peg alignement pval: {pegpval.pvalue}")
+
+plt.show() # show plots for interactive Qt backend

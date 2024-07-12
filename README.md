@@ -20,5 +20,8 @@ This will create a conda environment called `elife2024` which should have all th
 ## Reproduce manuscript figures
 Using the conda environment you just set up, you should now be able to run the code that reproduces the manuscript figures. The scripts to produce each figure are located in a figure specific subdirectory of `figure_scripts`. For example, all scripts needed to generate the the contents of Figure 2 (and associated supplementals) are located in `figure_scripts/fig2`.
 
+## `matplotlib` backend
+This can be specified in the `settings.py` while and should be used by all figure scripts. The default backend is `QtAgg`.
+
 ## Recaching analysis files
-Included in the data files downloaded from Dryad are a set of "analysis files" which contain cached results for analysis such as the stimulus decoding. These can all be regenerated, if desired, by re-running the analysis on your own machine. The scripts for re-caching all analyses are located in `cacheScripts`. At the top of each `.py` cache script you can find a brief description of the analysis that it will perform. 
+Included in the data files downloaded from Dryad are a set of "analysis files" which contain cached results for analysis such as the pairwise stimulus decoding. These can all be regenerated, if desired, by re-running the analysis on your own machine. The scripts for re-caching all analyses are located in `cacheScripts`. At the top of each `.py` cache script you will find a brief description of the analysis that it will perform. 

@@ -134,3 +134,5 @@ for row, (axis, area, comp_ax) in enumerate(zip([a1_taxis, peg_taxis], ["A1", "P
     print(f"{area}, early vs. late, pval: {pval}, stat: {stat}")
 
 f.tight_layout()
+
+plt.show() # show plots for interactive Qt backend

@@ -15,12 +15,6 @@ import helpers.tin_helpers as thelp
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.rcParams['axes.spines.right'] = False
-mpl.rcParams['axes.spines.top'] = False
-mpl.rcParams['font.size'] = 8
-mpl.rcParams['xtick.labelsize'] = 8 
-mpl.rcParams['ytick.labelsize'] = 8 
 
 batch = 324
 sqrt = True  # d', not d'^2
@@ -106,3 +100,4 @@ ax[1, 0].set_ylim(ymm); ax[1, 1].set_ylim(ymm)
 f.patch.set_facecolor("white")
 f.tight_layout()
 
+plt.show() # show plots for interactive Qt backend

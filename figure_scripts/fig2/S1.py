@@ -22,3 +22,5 @@ sites = df["site"].tolist()
 # plot the penetration map
 fig, coords = penetration_map(sites, area, bf, coords, equal_aspect=True, flip_X=True, flatten=True)
 fig.axes[0].grid()
+
+plt.show() # show plots for interactive Qt backend
