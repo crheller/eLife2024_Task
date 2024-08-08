@@ -1,6 +1,6 @@
 import os
 rr = os.path.dirname(__file__)
-RESULTS_DIR = os.path.join(rr, "eLife2024_data")
+RESULTS_DIR = os.path.join(rr, "data/elife2024/eLife2024_data")
 
 if os.path.isdir(RESULTS_DIR)==False:
     os.system(f"mkdir {RESULTS_DIR}")
