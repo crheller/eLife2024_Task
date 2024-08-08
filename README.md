@@ -1,7 +1,7 @@
 # Task-specific invariant representation in auditory cortex
 #### Heller, C.R., Hamersky, G.R., David, S.V.
 
-This repository contains the code to run all analyses presented in [Heller et al, 2023](https://elifesciences.org/reviewed-preprints/89936). The data is publicly available at: [Dryad](https://www.dontexist.com](https://datadryad.org/stash/dataset/doi:10.5061/dryad.z08kprrp4) and should be downloaded as follows, prior to running any code in this repository:
+This repository contains the code to run all analyses presented in [Heller et al, 2023](https://elifesciences.org/reviewed-preprints/89936). The data is publicly available at: [Dryad](https://datadryad.org/stash/dataset/doi:10.5061/dryad.z08kprrp4) and should be downloaded as follows, prior to running any code in this repository:
 
 ## Download data
 * Navigate to our [dataset](https://datadryad.org/stash/dataset/doi:10.5061/dryad.z08kprrp4) which is hosted on Dryad.
