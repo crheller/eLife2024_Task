@@ -6,7 +6,7 @@ This repository contains the code to run all analyses presented in [Heller et al
 ## Download data
 * Navigate to our [dataset](https://datadryad.org/stash/dataset/doi:10.5061/dryad.z08kprrp4) which is hosted on Dryad.
 
-* Click the dropdown "version files" button in the upper right corder
+* Click the dropdown "version files" button in the upper right corner of the page
 
 * Click on `elife2024.zip` to download the data
 
